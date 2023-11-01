@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <form [formGroup]="componentForm" (ngSubmit)="getFormValue()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Component Name</label>
+      <input type="text" class="form-control form-control-sm rounded-0 shadow-sm" id="name" formControlName="name">
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Component Category</label>
+      <input type="text" class="form-control form-control-sm rounded-0 shadow-sm" id="category"
+        formControlName="category">
+    </div>
+    <div class="mb-3">
+      <label for="manufacturer" class="form-label">Component Manufacturer</label>
+      <input type="text" class="form-control form-control-sm rounded-0 shadow-sm" id="manufacturer"
+        formControlName="manufacturer">
+    </div>
+
+    <div class="mb-3 text-center">
+      <label>Specifications</label>
+
+      <div formArrayName="specifications">
+        <div *ngFor="let specification of getSpecifications().controls; let j = index">
+          <div class="input-group" [formGroupName]="j">
+            <input type="text" class="form-control form-control-sm rounded-0 shadow-sm" formControlName="spec">
+            <input type="text" class="form-control form-control-sm rounded-0 shadow-sm" formControlName="value">
+            <button type="button" *ngIf="getSpecifications().length > 1" (click)="removeSpecification(j)"
+              class="btn btn-sm btn-outline-danger rounded-0">-</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-sm btn-outline-info rounded-0" (click)="newSpecification()">+</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Component Description</label>
+      <textarea class="form-control form-control-sm rounded-0 shadow-sm" id="description" rows="5"
+        formControlName="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-sm btn-outline-primary rounded-0">Submit</button>
+  </form>
+
+  <h2>Components Table</h2>
+  <table class="zui-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Manufacturer</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let component of components">
+        <td>{{component.name}}</td>
+        <td>{{component.category}}</td>
+        <td>{{component.manufacturer}}</td>
+        <td>{{component.description}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-center">
+
+  <form [formGroup]="studentForm" (ngSubmit)="getFormData()" class="mt-5 w-50">
+
+    <input type="text" placeholder="Student's Name" formControlName="name" />
+    <input type="text" placeholder="Student's Class" formControlName="class" />
+    <input type="text" placeholder="Student's Age" formControlName="age" />
+
+
+    <div formArrayName="subjects">
+      <div *ngFor="let studentSub of subjectsArray().controls; let j = index;">
+        <div [formGroupName]="j">
+          <input type="text" placeholder="Subject" formControlName="subject" />
+          <input type="text" placeholder="Marks" formControlName="marks" />
+          <button type="button" *ngIf="subjectsArray().length > 1" (click)="removeNewSubject(j)"
+            class="btn btn-sm btn-danger ms-1">Remove Subject</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <button type="button" (click)="addNewSubject()" class="btn btn-sm btn-warning mt-2">Add Subject</button>
+    <button type="submit" class="btn btn-sm btn-success mt-4 ms-2 mb-5">Submit</button>
+  </form>
+
+</div>
